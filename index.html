@@ -1,0 +1,876 @@
+<audio id="carol" src="carol.mp3" loop></audio>
+<div id="glowscript" class="glowscript">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link type="text/css" href="https://www.glowscript.org/css/redmond/2.1/jquery-ui.custom.css" rel="stylesheet" />
+<link type="text/css" href="https://www.glowscript.org/css/ide.css" rel="stylesheet" />
+<script type="text/javascript" src="https://www.glowscript.org/lib/jquery/2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.glowscript.org/lib/jquery/2.1/jquery-ui.custom.min.js"></script>
+<script type="text/javascript" src="https://www.glowscript.org/package/glow.3.2.min.js"></script>
+<script type="text/javascript" src="https://www.glowscript.org/package/RSrun.3.2.min.js"></script>
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+
+// START JAVASCRIPT
+;(function() {;
+var ρσ_modules = {};
+var s, current_platform_y, coin, skill, skill_reset, death, t, time;
+ρσ_modules.pythonize = {};
+ρσ_modules.random = {};
+
+(function(){
+    function strings() {
+        var string_funcs, exclude, name;
+        string_funcs = set("capitalize strip lstrip rstrip islower isupper isspace lower upper swapcase center count endswith startswith find rfind index rindex format join ljust rjust partition rpartition replace split rsplit splitlines zfill".split(" "));
+        if (!arguments.length) {
+            exclude = (function(){
+                var s = ρσ_set();
+                s.jsset.add("split");
+                s.jsset.add("replace");
+                return s;
+            })();
+        } else if (arguments[0]) {
+            exclude = Array.prototype.slice.call(arguments);
+        } else {
+            exclude = null;
+        }
+        if (exclude) {
+            string_funcs = string_funcs.difference(set(exclude));
+        }
+        var ρσ_Iter0 = string_funcs;
+        ρσ_Iter0 = ((typeof ρσ_Iter0[Symbol.iterator] === "function") ? (ρσ_Iter0 instanceof Map ? ρσ_Iter0.keys() : ρσ_Iter0) : Object.keys(ρσ_Iter0));
+        for (var ρσ_Index0 of ρσ_Iter0) {
+            name = ρσ_Index0;
+            (ρσ_expr_temp = String.prototype)[(typeof name === "number" && name < 0) ? ρσ_expr_temp.length + name : name] = (ρσ_expr_temp = ρσ_str.prototype)[(typeof name === "number" && name < 0) ? ρσ_expr_temp.length + name : name];
+        }
+    };
+    if (!strings.__module__) Object.defineProperties(strings, {
+        __module__ : {value: "pythonize"}
+    });
+
+    ρσ_modules.pythonize.strings = strings;
+})();
+
+(function(){
+    var ρσ_seed_state, ρσ_get_random_byte;
+    ρσ_seed_state = (function(){
+        var ρσ_d = {};
+        ρσ_d["key"] = ρσ_list_decorate([]);
+        ρσ_d["key_i"] = 0;
+        ρσ_d["key_j"] = 0;
+        return ρσ_d;
+    }).call(this);
+    ρσ_get_random_byte = (function() {
+        var ρσ_anonfunc = function () {
+            var ρσ_unpack;
+            ρσ_seed_state.key_i = (ρσ_seed_state.key_i + 1) % 256;
+            ρσ_seed_state.key_j = (ρσ_seed_state.key_j + (ρσ_expr_temp = ρσ_seed_state.key)[ρσ_bound_index(ρσ_seed_state.key_i, ρσ_expr_temp)]) % 256;
+            ρσ_unpack = [(ρσ_expr_temp = ρσ_seed_state.key)[ρσ_bound_index(ρσ_seed_state.key_j, ρσ_expr_temp)], 
+            (ρσ_expr_temp = ρσ_seed_state.key)[ρσ_bound_index(ρσ_seed_state.key_i, ρσ_expr_temp)]];
+            (ρσ_expr_temp = ρσ_seed_state.key)[ρσ_bound_index(ρσ_seed_state.key_i, ρσ_expr_temp)] = ρσ_unpack[0];
+            (ρσ_expr_temp = ρσ_seed_state.key)[ρσ_bound_index(ρσ_seed_state.key_j, ρσ_expr_temp)] = ρσ_unpack[1];
+            return (ρσ_expr_temp = ρσ_seed_state.key)[ρσ_bound_index(((ρσ_expr_temp = ρσ_seed_state.key)[ρσ_bound_index(ρσ_seed_state.key_i, ρσ_expr_temp)] + (ρσ_expr_temp = ρσ_seed_state.key)[ρσ_bound_index(ρσ_seed_state.key_j, ρσ_expr_temp)]) % 256, ρσ_expr_temp)];
+        };
+        if (!ρσ_anonfunc.__module__) Object.defineProperties(ρσ_anonfunc, {
+            __module__ : {value: "random"}
+        });
+        return ρσ_anonfunc;
+    })();
+    function seed() {
+        var x = (arguments[0] === undefined || ( 0 === arguments.length-1 && arguments[arguments.length-1] !== null && typeof arguments[arguments.length-1] === "object" && arguments[arguments.length-1] [ρσ_kwargs_symbol] === true)) ? seed.__defaults__.x : arguments[0];
+        var ρσ_kwargs_obj = arguments[arguments.length-1];
+        if (ρσ_kwargs_obj === null || typeof ρσ_kwargs_obj !== "object" || ρσ_kwargs_obj [ρσ_kwargs_symbol] !== true) ρσ_kwargs_obj = {};
+        if (Object.prototype.hasOwnProperty.call(ρσ_kwargs_obj, "x")){
+            x = ρσ_kwargs_obj.x;
+        }
+        var i, j, ρσ_unpack;
+        ρσ_seed_state.key_i = ρσ_seed_state.key_j = 0;
+        if (typeof x === "number") {
+            x = x.toString();
+        } else if (typeof x !== "string") {
+            throw new TypeError("unhashable type: '" + typeof x + "'");
+        }
+        for (var ρσ_Index1 = 0; ρσ_Index1 < 256; ρσ_Index1++) {
+            i = ρσ_Index1;
+            (ρσ_expr_temp = ρσ_seed_state.key)[(typeof i === "number" && i < 0) ? ρσ_expr_temp.length + i : i] = i;
+        }
+        j = 0;
+        for (var ρσ_Index2 = 0; ρσ_Index2 < 256; ρσ_Index2++) {
+            i = ρσ_Index2;
+            j = (j + (ρσ_expr_temp = ρσ_seed_state.key)[(typeof i === "number" && i < 0) ? ρσ_expr_temp.length + i : i] + x.charCodeAt(i % x.length)) % 256;
+            ρσ_unpack = [(ρσ_expr_temp = ρσ_seed_state.key)[(typeof j === "number" && j < 0) ? ρσ_expr_temp.length + j : j], 
+            (ρσ_expr_temp = ρσ_seed_state.key)[(typeof i === "number" && i < 0) ? ρσ_expr_temp.length + i : i]];
+            (ρσ_expr_temp = ρσ_seed_state.key)[(typeof i === "number" && i < 0) ? ρσ_expr_temp.length + i : i] = ρσ_unpack[0];
+            (ρσ_expr_temp = ρσ_seed_state.key)[(typeof j === "number" && j < 0) ? ρσ_expr_temp.length + j : j] = ρσ_unpack[1];
+        }
+    };
+    if (!seed.__defaults__) Object.defineProperties(seed, {
+        __defaults__ : {value: {x:(new Date).getTime()}},
+        __handles_kwarg_interpolation__ : {value: true},
+        __argnames__ : {value: ["x"]},
+        __module__ : {value: "random"}
+    });
+
+    seed();
+    function random() {
+        var n, m, i;
+        n = 0;
+        m = 1;
+        for (var ρσ_Index3 = 0; ρσ_Index3 < 8; ρσ_Index3++) {
+            i = ρσ_Index3;
+            n += ρσ_get_random_byte() * m;
+            m *= 256;
+        }
+        return n / 0x10000000000000000;
+    };
+    if (!random.__module__) Object.defineProperties(random, {
+        __module__ : {value: "random"}
+    });
+
+    function randrange() {
+        var start, stop, step, width, n;
+        if (arguments.length === 1) {
+            return randbelow(int(arguments[0]));
+        }
+        start = int(arguments[0]);
+        stop = int(arguments[1]);
+        if (arguments.length < 3) {
+            step = 1;
+        } else {
+            step = int(arguments[2]);
+        }
+        width = stop - start;
+        if (step === 1) {
+            if (width > 0) {
+                return start + randbelow(width);
+            }
+            throw new ValueError("empty range for randrange()");
+        }
+        if (step > 0) {
+            n = Math.floor((width + step - 1) / step);
+        } else if (step < 0) {
+            n = Math.floor((width + step + 1) / step);
+        } else {
+            throw new ValueError("zero step for randrange()");
+        }
+        if (n <= 0) {
+            throw new ValueError("empty range in randrange(" + ρσ_str.format("{}", start) + ", " + ρσ_str.format("{}", stop) + ", " + ρσ_str.format("{}", step) + ")");
+        }
+        return start + step * randbelow(n);
+    };
+    if (!randrange.__module__) Object.defineProperties(randrange, {
+        __module__ : {value: "random"}
+    });
+
+    function randint(a, b) {
+        return int(random() * (b - a + 1) + a);
+    };
+    if (!randint.__argnames__) Object.defineProperties(randint, {
+        __argnames__ : {value: ["a", "b"]},
+        __module__ : {value: "random"}
+    });
+
+    function uniform(a, b) {
+        return random() * (b - a) + a;
+    };
+    if (!uniform.__argnames__) Object.defineProperties(uniform, {
+        __argnames__ : {value: ["a", "b"]},
+        __module__ : {value: "random"}
+    });
+
+    function randbelow(n) {
+        return Math.floor(random() * n);
+    };
+    if (!randbelow.__argnames__) Object.defineProperties(randbelow, {
+        __argnames__ : {value: ["n"]},
+        __module__ : {value: "random"}
+    });
+
+    function choice(seq) {
+        if (seq.length > 0) {
+            return seq[ρσ_bound_index(randbelow(seq.length), seq)];
+        } else {
+            throw new IndexError;
+        }
+    };
+    if (!choice.__argnames__) Object.defineProperties(choice, {
+        __argnames__ : {value: ["seq"]},
+        __module__ : {value: "random"}
+    });
+
+    function shuffle() {
+        var x = ( 0 === arguments.length-1 && arguments[arguments.length-1] !== null && typeof arguments[arguments.length-1] === "object" && arguments[arguments.length-1] [ρσ_kwargs_symbol] === true) ? undefined : arguments[0];
+        var random_f = (arguments[1] === undefined || ( 1 === arguments.length-1 && arguments[arguments.length-1] !== null && typeof arguments[arguments.length-1] === "object" && arguments[arguments.length-1] [ρσ_kwargs_symbol] === true)) ? shuffle.__defaults__.random_f : arguments[1];
+        var ρσ_kwargs_obj = arguments[arguments.length-1];
+        if (ρσ_kwargs_obj === null || typeof ρσ_kwargs_obj !== "object" || ρσ_kwargs_obj [ρσ_kwargs_symbol] !== true) ρσ_kwargs_obj = {};
+        if (Object.prototype.hasOwnProperty.call(ρσ_kwargs_obj, "random_f")){
+            random_f = ρσ_kwargs_obj.random_f;
+        }
+        var j, ρσ_unpack, i;
+        for (var ρσ_Index4 = 0; ρσ_Index4 < x.length; ρσ_Index4++) {
+            i = ρσ_Index4;
+            j = Math.floor(random_f() * (i + 1));
+            ρσ_unpack = [x[(typeof j === "number" && j < 0) ? x.length + j : j], x[(typeof i === "number" && i < 0) ? x.length + i : i]];
+            x[(typeof i === "number" && i < 0) ? x.length + i : i] = ρσ_unpack[0];
+            x[(typeof j === "number" && j < 0) ? x.length + j : j] = ρσ_unpack[1];
+        }
+        return x;
+    };
+    if (!shuffle.__defaults__) Object.defineProperties(shuffle, {
+        __defaults__ : {value: {random_f:random}},
+        __handles_kwarg_interpolation__ : {value: true},
+        __argnames__ : {value: ["x", "random_f"]},
+        __module__ : {value: "random"}
+    });
+
+    function sample(population, k) {
+        var x, j, ρσ_unpack, i;
+        x = population.slice();
+        for (var ρσ_Index5 = population.length - 1; ρσ_Index5 > population.length - k - 1; ρσ_Index5-=1) {
+            i = ρσ_Index5;
+            j = Math.floor(random() * (i + 1));
+            ρσ_unpack = [x[(typeof j === "number" && j < 0) ? x.length + j : j], x[(typeof i === "number" && i < 0) ? x.length + i : i]];
+            x[(typeof i === "number" && i < 0) ? x.length + i : i] = ρσ_unpack[0];
+            x[(typeof j === "number" && j < 0) ? x.length + j : j] = ρσ_unpack[1];
+        }
+        return x.slice(population.length - k);
+    };
+    if (!sample.__argnames__) Object.defineProperties(sample, {
+        __argnames__ : {value: ["population", "k"]},
+        __module__ : {value: "random"}
+    });
+
+    ρσ_modules.random.ρσ_seed_state = ρσ_seed_state;
+    ρσ_modules.random.ρσ_get_random_byte = ρσ_get_random_byte;
+    ρσ_modules.random.seed = seed;
+    ρσ_modules.random.random = random;
+    ρσ_modules.random.randrange = randrange;
+    ρσ_modules.random.randint = randint;
+    ρσ_modules.random.uniform = uniform;
+    ρσ_modules.random.randbelow = randbelow;
+    ρσ_modules.random.choice = choice;
+    ρσ_modules.random.shuffle = shuffle;
+    ρσ_modules.random.sample = sample;
+})();
+async function __main__() {
+"use strict";
+    var display = canvas;
+    var scene = canvas();
+
+    var version, print, arange, __name__, type, ρσ_ls, scene, time, death, s, t, coin, coin_reset, skill, skill_reset, block_list, snow, stage, start, current_platform_y, game_cleared, ball, dt, g, jump_velocity, l, k, i, j, m, h, end;
+    version = ρσ_list_decorate([ "3.2", "glowscript" ]);
+    Array.prototype['+'] = function(r) {return this.concat(r)}
+    Array.prototype['*'] = function(r) {return __array_times_number(this, r)}
+    window.__GSlang = "vpython";
+    print = GSprint;
+    arange = range;
+    __name__ = "__main__";
+    type = pytype;
+    var strings = ρσ_modules.pythonize.strings;
+
+    strings();
+    var random = ρσ_modules.random;
+
+    "3";
+    scene = ρσ_interpolate_kwargs.call(this, canvas, [ρσ_desugar_kwargs({width: 1250, height: 703.125})]);
+    "4";
+    scene.center = vec(0, 0, 0);
+    (await sleep(.1));
+    "5";
+    scene.autoscale = false;
+    "6";
+    scene.camera.pos = vec(0, 0, 20);
+    "7";
+    scene.camera.axis = vec(0, 0, 1["-u"]()["*"](20));
+    "8";
+    scene.userzoom = false;
+    "9";
+    scene.userspin = false;
+    "10";
+    scene.userpan = false;
+    "12";
+    time = 0;
+    "13";
+    death = 0;
+    "14";
+    s = 0;
+    "15";
+    t = 0;
+    "16";
+    coin = ρσ_list_decorate([]);
+    "17";
+    coin_reset = ρσ_list_decorate([]);
+    "18";
+    skill = ρσ_list_decorate([]);
+    "19";
+    skill_reset = ρσ_list_decorate([]);
+    "20";
+    block_list = ρσ_list_decorate([]);
+    "21";
+    snow = ρσ_list_decorate([]);
+    "22";
+    stage = 1;
+    "23";
+    start = vec(0, 0, 0);
+    "24";
+    current_platform_y = 0;
+    "25";
+    game_cleared = 0;
+    "27";
+    async function f(x) {
+        "28";
+        if (ρσ_equals(len(str(x)), 1)) {
+            "29";
+            x = "0"["+"](str(x));
+        }
+        "30";
+        return x;
+    };
+    if (!f.__argnames__) Object.defineProperties(f, {
+        __argnames__ : {value: ["x"]},
+        __module__ : {value: null}
+    });
+
+    "32";
+    async function block(a, b, c, d) {
+        "33";
+        if ((d === 0 || typeof d === "object" && ρσ_equals(d, 0))) {
+            "34";
+            d = color.white;
+            "35";
+        } else if ((d === 1 || typeof d === "object" && ρσ_equals(d, 1))) {
+            "36";
+            d = color.red;
+        }
+        "37";
+        return ρσ_interpolate_kwargs.call(this, box, [ρσ_desugar_kwargs({pos: vec(a["+"](b)["/"](2), c["-"](1["*"](.25)), 0), size: vec(abs(b["-"](1["*"](a))), .5, 1), color: d})]);
+    };
+    if (!block.__argnames__) Object.defineProperties(block, {
+        __argnames__ : {value: ["a", "b", "c", "d"]},
+        __module__ : {value: null}
+    });
+
+    "39";
+    async function wall(a, b, c) {
+        "40";
+        return ρσ_interpolate_kwargs.call(this, box, [ρσ_desugar_kwargs({pos: vec(c, a["+"](b)["/"](2), 0), size: vec(1, abs(b["-"](1["*"](a))), 1)})]);
+    };
+    if (!wall.__argnames__) Object.defineProperties(wall, {
+        __argnames__ : {value: ["a", "b", "c"]},
+        __module__ : {value: null}
+    });
+
+    "42";
+    async function star(a, b, c) {
+        "43";
+        if ((c === 0 || typeof c === "object" && ρσ_equals(c, 0))) {
+            "44";
+            c = color.yellow;
+            "45";
+        } else {
+            "46";
+            c = color.blue;
+        }
+        "47";
+        return ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({color: c, radius: .5, pos: vec(a, b, 0)})]);
+    };
+    if (!star.__argnames__) Object.defineProperties(star, {
+        __argnames__ : {value: ["a", "b", "c"]},
+        __module__ : {value: null}
+    });
+
+    "49";
+    async function crush(m, n) {
+        "50";
+        return Math.pow((Math.pow((m.pos.x["-"](1["*"](n.pos.x))), 2)["+"](Math.pow((m.pos.y["-"](1["*"](n.pos.y))), 2))), .5)["<="](m.radius["+"](n.radius));
+    };
+    if (!crush.__argnames__) Object.defineProperties(crush, {
+        __argnames__ : {value: ["m", "n"]},
+        __module__ : {value: null}
+    });
+
+    "52";
+    async function gain(x) {
+        var ρσ_ls, j;
+        "53";
+        "54";
+        var ρσ_Iter6 = x;
+        ρσ_Iter6 = ((typeof ρσ_Iter6[Symbol.iterator] === "function") ? (ρσ_Iter6 instanceof Map ? ρσ_Iter6.keys() : ρσ_Iter6) : Object.keys(ρσ_Iter6));
+        for (var ρσ_Index6 of ρσ_Iter6) {
+            j = ρσ_Index6;
+            "55";
+            if ((await crush(j, ball))) {
+                "56";
+                j.visible = false;
+                "57";
+                if ((j.color === color.blue || typeof j.color === "object" && ρσ_equals(j.color, color.blue))) {
+                    "58";
+                    s = 1;
+                    "59";
+                    ball.color = vec(.5, .5, .5);
+                    "60";
+                    current_platform_y = ball.pos.y;
+                }
+            }
+        }
+        "61";
+        ρσ_splice(x, (function() {
+            var ρσ_Iter = x, ρσ_Result = [], c;
+            ρσ_Iter = ((typeof ρσ_Iter[Symbol.iterator] === "function") ? (ρσ_Iter instanceof Map ? ρσ_Iter.keys() : ρσ_Iter) : Object.keys(ρσ_Iter));
+            for (var ρσ_Index of ρσ_Iter) {
+                c = ρσ_Index;
+                if (c.visible) {
+                    ρσ_Result.push(c);
+                }
+            }
+            ρσ_Result = ρσ_list_constructor(ρσ_Result);
+            return ρσ_Result;
+        })(), 0);
+    };
+    if (!gain.__argnames__) Object.defineProperties(gain, {
+        __argnames__ : {value: ["x"]},
+        __module__ : {value: null}
+    });
+
+    "63";
+    async function unji() {
+        var ρσ_ls, j;
+        "64";
+        "66";
+        ball.pos = start;
+        "67";
+        ball.velocity = vec(0, 0, 0);
+        "69";
+        coin = ρσ_list_decorate([]);
+        "70";
+        var ρσ_Iter7 = coin_reset;
+        ρσ_Iter7 = ((typeof ρσ_Iter7[Symbol.iterator] === "function") ? (ρσ_Iter7 instanceof Map ? ρσ_Iter7.keys() : ρσ_Iter7) : Object.keys(ρσ_Iter7));
+        for (var ρσ_Index7 of ρσ_Iter7) {
+            j = ρσ_Index7;
+            "71";
+            j.visible = true;
+            "72";
+            coin.append(j);
+        }
+        "74";
+        skill = ρσ_list_decorate([]);
+        "75";
+        var ρσ_Iter8 = skill_reset;
+        ρσ_Iter8 = ((typeof ρσ_Iter8[Symbol.iterator] === "function") ? (ρσ_Iter8 instanceof Map ? ρσ_Iter8.keys() : ρσ_Iter8) : Object.keys(ρσ_Iter8));
+        for (var ρσ_Index8 of ρσ_Iter8) {
+            j = ρσ_Index8;
+            "76";
+            j.visible = true;
+            "77";
+            skill.append(j);
+        }
+        "78";
+        death=death["+"](1);
+        "80";
+        s = 0;
+        "81";
+        ball.color = color.green;
+        "82";
+        current_platform_y = ball.pos.y;
+    };
+    if (!unji.__module__) Object.defineProperties(unji, {
+        __module__ : {value: null}
+    });
+
+    "84";
+    async function collision() {
+        var ρσ_ls, block;
+        "85";
+        "86";
+        var ρσ_Iter9 = block_list;
+        ρσ_Iter9 = ((typeof ρσ_Iter9[Symbol.iterator] === "function") ? (ρσ_Iter9 instanceof Map ? ρσ_Iter9.keys() : ρσ_Iter9) : Object.keys(ρσ_Iter9));
+        for (var ρσ_Index9 of ρσ_Iter9) {
+            block = ρσ_Index9;
+            "87";
+            if (block.size.y["<"](1)) {
+                "88";
+                if (abs(ball.pos.x["-"](1["*"](block.pos.x)))["<="](block.size.x["/"](2)["+"](ball.radius))) {
+                    "90";
+                    if (ball.pos.y["-"](1["*"](ball.radius))["<="](block.pos.y["+"](block.size.y["/"](2))) && ball.pos.y[">"](block.pos.y) && ball.velocity.y["<"](0)) {
+                        "91";
+                        ball.pos.y = block.pos.y["+"](block.size.y["/"](2))["+"](ball.radius);
+                        "92";
+                        ball.velocity.y = 0;
+                        "94";
+                        if ((block.color === color.red || typeof block.color === "object" && ρσ_equals(block.color, color.red))) {
+                            "95";
+                            (await unji());
+                            "96";
+                            break;
+                            "97";
+                        } else {
+                            "98";
+                            ball.velocity.y = jump_velocity;
+                            "99";
+                            current_platform_y = ball.pos.y;
+                            "100";
+                            break;
+                            "103";
+                        }
+                    } else if (ball.pos.y["+"](ball.radius)[">="](block.pos.y["-"](1["*"](block.size.y)["/"](2))) && ball.pos.y["<"](block.pos.y) && ball.velocity.y[">"](0)) {
+                        "104";
+                        ball.pos.y = block.pos.y["-"](1["*"](block.size.y)["/"](2))["-"](1["*"](ball.radius));
+                        "105";
+                        ball.velocity.y = 1["-u"]()["*"](abs(ball.velocity.y));
+                        "108";
+                    }
+                }
+            } else if (abs(ball.pos.x["-"](1["*"](block.pos.x)))["<="](block.size.x["/"](2)["+"](ball.radius)) && abs(ball.pos.y["-"](1["*"](block.pos.y)))["<="](block.size.y["/"](2))) {
+                "109";
+                if (ball.pos.x[">"](block.pos.x)) {
+                    "110";
+                    ball.pos.x = block.pos.x["+"](block.size.x["/"](2))["+"](ball.radius);
+                    "111";
+                    ball.velocity.x = abs(ball.velocity.x);
+                    "112";
+                } else if (ball.pos.x["<"](block.pos.x)) {
+                    "113";
+                    ball.pos.x = block.pos.x["-"](1["*"](block.size.x)["/"](2))["-"](1["*"](ball.radius));
+                    "114";
+                    ball.velocity.x = 1["-u"]()["*"](abs(ball.velocity.x));
+                }
+            }
+        }
+    };
+    if (!collision.__module__) Object.defineProperties(collision, {
+        __module__ : {value: null}
+    });
+
+    "116";
+    async function smooth_camera_move() {
+        var target_y = ( 0 === arguments.length["-"](1) && arguments[arguments.length["-"](1)] !== null && typeof arguments[arguments.length["-"](1)] === "object" && arguments[arguments.length["-"](1)] [ρσ_kwargs_symbol] === true) ? undefined : arguments[0];
+        var current_y = ( 1 === arguments.length["-"](1) && arguments[arguments.length["-"](1)] !== null && typeof arguments[arguments.length["-"](1)] === "object" && arguments[arguments.length["-"](1)] [ρσ_kwargs_symbol] === true) ? undefined : arguments[1];
+        var alpha = (arguments[2] === undefined || ( 2 === arguments.length["-"](1) && arguments[arguments.length["-"](1)] !== null && typeof arguments[arguments.length["-"](1)] === "object" && arguments[arguments.length["-"](1)] [ρσ_kwargs_symbol] === true)) ? smooth_camera_move.__defaults__.alpha : arguments[2];
+        var ρσ_kwargs_obj = arguments[arguments.length["-"](1)];
+        if (ρσ_kwargs_obj === null || typeof ρσ_kwargs_obj !== "object" || ρσ_kwargs_obj [ρσ_kwargs_symbol] !== true) ρσ_kwargs_obj = {};
+        if (Object.prototype.hasOwnProperty.call(ρσ_kwargs_obj, "alpha")){
+            alpha = ρσ_kwargs_obj.alpha;
+        }
+        "117";
+        return 1["-"](1["*"](alpha))["*"](current_y)["+"](alpha["*"](target_y));
+    };
+    if (!smooth_camera_move.__defaults__) Object.defineProperties(smooth_camera_move, {
+        __defaults__ : {value: {alpha:.1}},
+        __handles_kwarg_interpolation__ : {value: true},
+        __argnames__ : {value: ["target_y", "current_y", "alpha"]},
+        __module__ : {value: null}
+    });
+
+    "119";
+    async function movement() {
+        var ρσ_ls, k, velocity;
+        "120";
+        "121";
+        k = (await keysdown());
+        "122";
+        if (ρσ_in("d", k) || ρσ_in("right", k)) {
+            "123";
+            ball.pos.x=ball.pos.x["+"](.1);
+            "124";
+        }
+        if (ρσ_in("a", k) || ρσ_in("left", k)) {
+            "125";
+            ball.pos.x=ball.pos.x["-"](.1);
+            "126";
+        }
+        if (ρσ_in("s", k) || ρσ_in("down", k)) {
+            "127";
+            (await unji());
+            "128";
+        }
+        if (ρσ_in("up", k) && (ρσ_in("right", k) || ρσ_in("left", k)) || ρσ_in("w", k) && (ρσ_in("d", k) || ρσ_in("a", k))) {
+            "129";
+            if ((s === 1 || typeof s === "object" && ρσ_equals(s, 1))) {
+                "130";
+                s = 0;
+                "131";
+                ball.color = color.green;
+                "132";
+                if (ρσ_in("right", k) || ρσ_in("d", k)) {
+                    "133";
+                    velocity = vec(30, 1, 0);
+                    "134";
+                } else {
+                    "135";
+                    velocity = vec(1["-u"]()["*"](30), 1, 0);
+                }
+                "136";
+                while (t["<="](.3)) {
+                    "137";
+                    (await rate(125));
+                    "138";
+                    (await collision());
+                    "139";
+                    (await gain(coin));
+                    "140";
+                    (await gain(skill));
+                    "141";
+                    ball.pos = ball.pos["+"](velocity["*"](dt));
+                    "142";
+                    velocity.y=velocity.y["+"](g["*"](dt));
+                    "143";
+                    t=t["+"](dt);
+                    "144";
+                    time=time["+"](1["/"](125));
+                }
+                "145";
+                t = 0;
+            }
+        }
+    };
+    if (!movement.__module__) Object.defineProperties(movement, {
+        __module__ : {value: null}
+    });
+
+    "147";
+    ball = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({radius: .5, color: color.green, visible: false})]);
+    "148";
+    ball.velocity = vec(0, 0, 0);
+    "150";
+    dt = .01;
+    "151";
+    g = 1["-u"]()["*"](30);
+    "152";
+    jump_velocity = 15;
+    "153";
+    current_platform_y = ball.pos.y;
+    "155";
+    l = ρσ_interpolate_kwargs.call(this, label, [ρσ_desugar_kwargs({text: "Bounce Ball\n\nPress any key to start"})]);
+    "156";
+    while (true) {
+        "157";
+        (await rate(100));
+        "158";
+        k = (await keysdown());
+        "159";
+        if (ρσ_not_equals(len(k), 0)) {
+            document.getElementById("carol").play();	
+            "160";
+            l.visible = false;
+            "161";
+            ball.visible = true;
+            "162";
+            break;
+        }
+    }
+    "164";
+    while (true) {
+        "165";
+        (await rate(100));
+        "166";
+        k = (await keysdown());
+        "167";
+        ball.visible = true;
+        "168";
+        while (true) {
+            "169";
+            var ρσ_Iter10 = block_list["+"](coin_reset)["+"](skill_reset);
+            ρσ_Iter10 = ((typeof ρσ_Iter10[Symbol.iterator] === "function") ? (ρσ_Iter10 instanceof Map ? ρσ_Iter10.keys() : ρσ_Iter10) : Object.keys(ρσ_Iter10));
+            for (var ρσ_Index10 of ρσ_Iter10) {
+                i = ρσ_Index10;
+                "170";
+                i.visible = false;
+            }
+            "172";
+            block_list = ρσ_list_decorate([]);
+            "173";
+            coin_reset = ρσ_list_decorate([]);
+            "174";
+            skill_reset = ρσ_list_decorate([]);
+            "176";
+            if ((stage === 1 || typeof stage === "object" && ρσ_equals(stage, 1))) {
+                "177";
+                block_list = ρσ_list_decorate([ (await block(1["-u"]()["*"](10), 1["-u"]()["*"](5), 0, 0)), (await block(0, 10, 0, 0)), (await block(20, 26, 0, 0)) ]);
+                "182";
+                coin_reset = ρσ_list_decorate([ (await star(23, 1, 0)), (await star(5, 1, 0)) ]);
+                "186";
+                skill_reset = ρσ_list_decorate([ (await star(9, 1, 1)) ]);
+                "189";
+                start = vec(1["-u"]()["*"](10), 1, 0);
+                "191";
+            } else if ((stage === 2 || typeof stage === "object" && ρσ_equals(stage, 2))) {
+                "192";
+                block_list = ρσ_list_decorate([ (await block(1["-u"]()["*"](11), 1["-u"]()["*"](7), 0, 0)), (await block(1["-u"]()["*"](2), 2, 2, 0)), (await block(7.5["-"](1["*"](2)), 7.5["+"](2), 4, 0)), (await block(15["-"](1["*"](2)), 15["+"](2), 3, 0)), (await wall(1["-u"]()["*"](5), 5, 1["-u"]()["*"](25))) ]);
+                "200";
+                coin_reset = ρσ_list_decorate([ (await star(15, 4, 0)), (await star(1["-u"]()["*"](24), 0, 0)) ]);
+                "204";
+                skill_reset = ρσ_list_decorate([ (await star(0, 4, 1)) ]);
+                "207";
+                start = vec(1["-u"]()["*"](9), 2, 0);
+                "208";
+            } else if ((stage === 3 || typeof stage === "object" && ρσ_equals(stage, 3))) {
+                "209";
+                start = vec(1["-u"]()["*"](9), 22, 0);
+                "210";
+                block_list = ρσ_list_decorate([ (await block(1["-u"]()["*"](10), 1["-u"]()["*"](8), 20, 0)), (await block(1.5, 1["-u"]()["*"](4), 15, 1)), (await block(1["-u"]()["*"](3), 5, 3, 0)), (await wall(25, 10, 2)), (await wall(19.5, 5, 1["-u"]()["*"](9))), (await wall(23, 5, 11)), (await block(9, 11, 7, 0)), (await block(2, 4, 11, 0)), (await block(9, 11, 15, 0)), (await block(2, 4, 19, 0)), (await block(9, 13, 23, 0)) ]);
+                "224";
+                coin_reset = ρσ_list_decorate([ (await star(1, 20, 0)), (await star(1["-u"]()["*"](8), 15, 0)), (await star(1, 10, 0)) ]);
+                "229";
+                var ρσ_Iter11 = range(22, 5, 1["-u"]()["*"](1));
+                ρσ_Iter11 = ((typeof ρσ_Iter11[Symbol.iterator] === "function") ? (ρσ_Iter11 instanceof Map ? ρσ_Iter11.keys() : ρσ_Iter11) : Object.keys(ρσ_Iter11));
+                for (var ρσ_Index11 of ρσ_Iter11) {
+                    i = ρσ_Index11;
+                    "230";
+                    coin_reset.append((await star(20, i, 0)));
+                }
+                "231";
+                skill_reset = ρσ_list_decorate([ (await star(1["-u"]()["*"](9), 21, 1)), (await star(1, 19, 1)), (await star(1["-u"]()["*"](8), 14, 1)), (await star(11, 24, 1)) ]);
+                "237";
+            } else if ((stage === 4 || typeof stage === "object" && ρσ_equals(stage, 4))) {
+                "238";
+                start = vec(0, 6, 0);
+                "239";
+                block_list = ρσ_list_decorate([ (await block(1["-u"]()["*"](8), 0, 5, 0)), (await block(1["-u"]()["*"](22), 1["-u"]()["*"](40.25), 0, 0)) ]);
+                "243";
+                for (var ρσ_Index12 = 0; ρσ_Index12["<"](4); ρσ_Index12++) {
+                    i = ρσ_Index12;
+                    "244";
+                    for (var ρσ_Index13 = 1; ρσ_Index13["<"](3); ρσ_Index13++) {
+                        j = ρσ_Index13;
+                        "245";
+                        block_list.append((await block(1["-u"]()["*"](26.5)["-"](1["*"](4)["*"](i)), 1["-u"]()["*"](25.5)["-"](1["*"](4)["*"](i)), j["+"](.25), 1)));
+                    }
+                }
+                "246";
+                coin_reset = ρσ_list_decorate([ (await star(1["-u"]()["*"](15), .1["+"](8), 0)), (await star(1["-u"]()["*"](17.5), .1["+"](7.75), 0)), (await star(1["-u"]()["*"](20), .1["+"](7), 0)), (await star(1["-u"]()["*"](22.5), .1["+"](6.25), 0)), (await star(1["-u"]()["*"](40), .1["+"](1), 0)) ]);
+                "253";
+                skill_reset = ρσ_list_decorate([ (await star(1["-u"]()["*"](8), 6, 1)) ]);
+                "256";
+            } else {
+                "257";
+                block_list = ρσ_list_decorate([]);
+                "258";
+                coin_reset = ρσ_list_decorate([]);
+                "259";
+                skill_reset = ρσ_list_decorate([]);
+                "260";
+                ball.visible = false;
+                "261";
+                time = int(time);
+                "262";
+                s = time["%"](60);
+                "263";
+                m = Math.floor(time["/"](60));
+                "264";
+                h = Math.floor(time["/"](3600));
+                "266";
+                end = ρσ_interpolate_kwargs.call(this, label, [ρσ_desugar_kwargs({text: "Game Clear\n\ndeath: "["+"](ρσ_str.format("{}", death))["+"]("\n\nPlay Time : ")["+"](ρσ_str.format("{}", (await f(h))))["+"](":")["+"](ρσ_str.format("{}", (await f(m))))["+"](":")["+"](ρσ_str.format("{}", (await f(s))))["+"](" "), pos: scene.center})]);
+                "267";
+                game_cleared = 1;
+                "268";
+                break;
+            }
+            "270";
+            (await unji());
+            "271";
+            while (true) {
+                "272";
+                t=t["+"](.01);
+                "273";
+                if (t[">="](.02)) {
+                    "274";
+                    snow.append(ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({radius: .2, pos: vec(ball.pos.x["+"](random.uniform(1["-u"]()["*"](100), 100)), ball.pos.y["+"](10), 0)})]));
+                    "275";
+                    t = 0;
+                }
+                "276";
+                var ρσ_Iter14 = snow;
+                ρσ_Iter14 = ((typeof ρσ_Iter14[Symbol.iterator] === "function") ? (ρσ_Iter14 instanceof Map ? ρσ_Iter14.keys() : ρσ_Iter14) : Object.keys(ρσ_Iter14));
+                for (var ρσ_Index14 of ρσ_Iter14) {
+                    j = ρσ_Index14;
+                    "277";
+                    j.pos.y=j.pos.y["-"](.05);
+                }
+                "278";
+                var ρσ_Iter15 = range(len(snow)["-"](1["*"](1)), 1["-u"]()["*"](1), 1["-u"]()["*"](1));
+                ρσ_Iter15 = ((typeof ρσ_Iter15[Symbol.iterator] === "function") ? (ρσ_Iter15 instanceof Map ? ρσ_Iter15.keys() : ρσ_Iter15) : Object.keys(ρσ_Iter15));
+                for (var ρσ_Index15 of ρσ_Iter15) {
+                    i = ρσ_Index15;
+                    "279";
+                    if (ρσ_getitem(snow, i).pos.y["<="](1["-u"]()["*"](10))) {
+                        "280";
+                        ρσ_getitem(snow, i).visible = false;
+                        "281";
+                        ρσ_delitem(snow, i);
+                    }
+                }
+                "283";
+                (await rate(125));
+                "284";
+                time=time["+"](1["/"](125));
+                "285";
+                (await movement());
+                "287";
+                scene.center.x = ball.pos.x;
+                "289";
+                ball.velocity.y=ball.velocity.y["+"](g["*"](dt));
+                "290";
+                ball.pos=ball.pos["+"](ball.velocity["*"](dt));
+                "292";
+                (await collision());
+                "293";
+                (await gain(coin));
+                "294";
+                (await gain(skill));
+                "295";
+                if (ball.pos.y["<"](1["-u"]()["*"](10))) {
+                    "296";
+                    (await unji());
+                }
+                "297";
+                scene.center.y = await ρσ_list_decorate(ρσ_interpolate_kwargs.call(this, smooth_camera_move, [current_platform_y, scene.center.y].concat([ρσ_desugar_kwargs({alpha: .05})])));
+                "298";
+                scene.camera.pos.y = await ρσ_list_decorate(ρσ_interpolate_kwargs.call(this, smooth_camera_move, [current_platform_y, scene.camera.pos.y].concat([ρσ_desugar_kwargs({alpha: .05})])));
+                "300";
+                if (ρσ_equals(len(coin), 0)) {
+                    "301";
+                    ball.velocity = vec(0, 0, 0);
+                    "302";
+                    end = ρσ_interpolate_kwargs.call(this, label, [ρσ_desugar_kwargs({text: "Stage "["+"](ρσ_str.format("{}", stage))["+"](" clear"), pos: scene.center})]);
+                    "303";
+                    end.visible = true;
+                    "304";
+                    (await sleep(2));
+                    "305";
+                    time=time["+"](2);
+                    "306";
+                    var ρσ_Iter16 = block_list["+"](coin_reset)["+"](skill_reset);
+                    ρσ_Iter16 = ((typeof ρσ_Iter16[Symbol.iterator] === "function") ? (ρσ_Iter16 instanceof Map ? ρσ_Iter16.keys() : ρσ_Iter16) : Object.keys(ρσ_Iter16));
+                    for (var ρσ_Index16 of ρσ_Iter16) {
+                        i = ρσ_Index16;
+                        "307";
+                        i.visible = false;
+                    }
+                    "308";
+                    end.visible = false;
+                    "309";
+                    stage=stage["+"](1);
+                    "310";
+                    break;
+                    "311";
+                }
+                if (game_cleared) {
+                    "312";
+                    break;
+                    "313";
+                }
+            }
+        }
+        if (game_cleared) {
+            "314";
+            break;
+        }
+    }
+};
+if (!__main__.__module__) Object.defineProperties(__main__, {
+    __module__ : {value: null}
+});
+
+;$(function(){ window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }; __main__() })})()
+// END JAVASCRIPT
+
+//--><!]]></script>
+</div>
