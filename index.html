@@ -1,15 +1,8 @@
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Bounce Ball (with mobile double-tap dash)</title>
+<audio id="carol" src="carol.mp3" loop></audio>
+<div id="glowscript" class="glowscript">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link type="text/css" href="https://www.glowscript.org/css/redmond/2.1/jquery-ui.custom.css" rel="stylesheet" />
 <link type="text/css" href="https://www.glowscript.org/css/ide.css" rel="stylesheet" />
-</head>
-<body>
-<audio id="carol" src="carol.mp3" loop></audio>
-
-<div id="glowscript" class="glowscript">
 <script type="text/javascript" src="https://www.glowscript.org/lib/jquery/2.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://www.glowscript.org/lib/jquery/2.1/jquery-ui.custom.min.js"></script>
 <script type="text/javascript" src="https://www.glowscript.org/package/glow.3.2.min.js"></script>
@@ -286,7 +279,7 @@ async function __main__() {
     "6";
     scene.camera.pos = vec(0, 0, 20);
     "7";
-    scene.camera.axis = vec(0, 0, 1);
+    scene.camera.axis = vec(0, 0, 1["-u"]()["*"](20));
     "8";
     scene.userzoom = false;
     "9";
@@ -348,7 +341,7 @@ async function __main__() {
             d = color.red;
         }
         "37";
-        return ρσ_interpolate_kwargs.call(this, box, , c["-"](1["*"](.25)), 0), size: vec(abs(b["-"](1["*"](a))), .5, 1), color: d})]);
+        return ρσ_interpolate_kwargs.call(this, box, [ρσ_desugar_kwargs({pos: vec(a["+"](b)["/"](2), c["-"](1["*"](.25)), 0), size: vec(abs(b["-"](1["*"](a))), .5, 1), color: d})]);
     };
     if (!block.__argnames__) Object.defineProperties(block, {
         __argnames__ : {value: ["a", "b", "c", "d"]},
@@ -358,7 +351,7 @@ async function __main__() {
     "39";
     async function wall(a, b, c) {
         "40";
-        return ρσ_interpolate_kwargs.call(this, box, , 0), size: vec(1, abs(b["-"](1["*"](a))), 1)})]);
+        return ρσ_interpolate_kwargs.call(this, box, [ρσ_desugar_kwargs({pos: vec(c, a["+"](b)["/"](2), 0), size: vec(1, abs(b["-"](1["*"](a))), 1)})]);
     };
     if (!wall.__argnames__) Object.defineProperties(wall, {
         __argnames__ : {value: ["a", "b", "c"]},
@@ -470,7 +463,7 @@ async function __main__() {
             skill.append(j);
         }
         "78";
-        death=death;
+        death=death["+"](1);
         "80";
         s = 0;
         "81";
@@ -492,13 +485,13 @@ async function __main__() {
         for (var ρσ_Index9 of ρσ_Iter9) {
             block = ρσ_Index9;
             "87";
-            if (block.size.y) {
+            if (block.size.y["<"](1)) {
                 "88";
-                if (abs(ball.pos.x["+"](ball.radius))) {
+                if (abs(ball.pos.x["-"](1["*"](block.pos.x)))["<="](block.size.x["/"](2)["+"](ball.radius))) {
                     "90";
-                    if (ball.pos.y)) && ball.pos.y) {
+                    if (ball.pos.y["-"](1["*"](ball.radius))["<="](block.pos.y["+"](block.size.y["/"](2))) && ball.pos.y[">"](block.pos.y) && ball.velocity.y["<"](0)) {
                         "91";
-                        ball.pos.y = block.pos.y)["+"](ball.radius);
+                        ball.pos.y = block.pos.y["+"](block.size.y["/"](2))["+"](ball.radius);
                         "92";
                         ball.velocity.y = 0;
                         "94";
@@ -517,25 +510,25 @@ async function __main__() {
                             break;
                             "103";
                         }
-                    } else if (ball.pos.y)) && ball.pos.y) {
+                    } else if (ball.pos.y["+"](ball.radius)[">="](block.pos.y["-"](1["*"](block.size.y)["/"](2))) && ball.pos.y["<"](block.pos.y) && ball.velocity.y[">"](0)) {
                         "104";
-                        ball.pos.y = block.pos.y)["-"](1["*"](ball.radius));
+                        ball.pos.y = block.pos.y["-"](1["*"](block.size.y)["/"](2))["-"](1["*"](ball.radius));
                         "105";
                         ball.velocity.y = 1["-u"]()["*"](abs(ball.velocity.y));
                         "108";
                     }
                 }
-            } else if (abs(ball.pos.x)) {
+            } else if (abs(ball.pos.x["-"](1["*"](block.pos.x)))["<="](block.size.x["/"](2)["+"](ball.radius)) && abs(ball.pos.y["-"](1["*"](block.pos.y)))["<="](block.size.y["/"](2))) {
                 "109";
                 if (ball.pos.x[">"](block.pos.x)) {
                     "110";
-                    ball.pos.x = block.pos.x)["+"](ball.radius);
+                    ball.pos.x = block.pos.x["+"](block.size.x["/"](2))["+"](ball.radius);
                     "111";
                     ball.velocity.x = abs(ball.velocity.x);
                     "112";
                 } else if (ball.pos.x["<"](block.pos.x)) {
                     "113";
-                    ball.pos.x = block.pos.x)["-"](1["*"](ball.radius));
+                    ball.pos.x = block.pos.x["-"](1["*"](block.size.x)["/"](2))["-"](1["*"](ball.radius));
                     "114";
                     ball.velocity.x = 1["-u"]()["*"](abs(ball.velocity.x));
                 }
@@ -548,8 +541,336 @@ async function __main__() {
 
     "116";
     async function smooth_camera_move() {
-        var target_y = ( 0 === arguments.length && arguments] !== null && typeof arguments] === "object" && arguments] [ρσ_kwargs_symbol] === true) ? undefined : arguments[0];
-        var current_y = ( 1 === arguments.length && arguments] !== null && typeof arguments] === "object" && arguments] [ρσ_kwargs_symbol] === true) ? undefined : arguments[1];
-        var alpha = (arguments[2] === undefined || ( 2 === arguments.length-"
-        /* NOTE: truncated by assistant generation safeguards */
+        var target_y = ( 0 === arguments.length["-"](1) && arguments[arguments.length["-"](1)] !== null && typeof arguments[arguments.length["-"](1)] === "object" && arguments[arguments.length["-"](1)] [ρσ_kwargs_symbol] === true) ? undefined : arguments[0];
+        var current_y = ( 1 === arguments.length["-"](1) && arguments[arguments.length["-"](1)] !== null && typeof arguments[arguments.length["-"](1)] === "object" && arguments[arguments.length["-"](1)] [ρσ_kwargs_symbol] === true) ? undefined : arguments[1];
+        var alpha = (arguments[2] === undefined || ( 2 === arguments.length["-"](1) && arguments[arguments.length["-"](1)] !== null && typeof arguments[arguments.length["-"](1)] === "object" && arguments[arguments.length["-"](1)] [ρσ_kwargs_symbol] === true)) ? smooth_camera_move.__defaults__.alpha : arguments[2];
+        var ρσ_kwargs_obj = arguments[arguments.length["-"](1)];
+        if (ρσ_kwargs_obj === null || typeof ρσ_kwargs_obj !== "object" || ρσ_kwargs_obj [ρσ_kwargs_symbol] !== true) ρσ_kwargs_obj = {};
+        if (Object.prototype.hasOwnProperty.call(ρσ_kwargs_obj, "alpha")){
+            alpha = ρσ_kwargs_obj.alpha;
+        }
+        "117";
+        return 1["-"](1["*"](alpha))["*"](current_y)["+"](alpha["*"](target_y));
+    };
+    if (!smooth_camera_move.__defaults__) Object.defineProperties(smooth_camera_move, {
+        __defaults__ : {value: {alpha:.1}},
+        __handles_kwarg_interpolation__ : {value: true},
+        __argnames__ : {value: ["target_y", "current_y", "alpha"]},
+        __module__ : {value: null}
     });
+
+    "119";
+    async function movement() {
+        var ρσ_ls, k, velocity;
+        "120";
+        "121";
+        k = (await keysdown());
+        "122";
+        if (ρσ_in("d", k) || ρσ_in("right", k)) {
+            "123";
+            ball.pos.x=ball.pos.x["+"](.1);
+            "124";
+        }
+        if (ρσ_in("a", k) || ρσ_in("left", k)) {
+            "125";
+            ball.pos.x=ball.pos.x["-"](.1);
+            "126";
+        }
+        if (ρσ_in("s", k) || ρσ_in("down", k)) {
+            "127";
+            (await unji());
+            "128";
+        }
+        if (ρσ_in("up", k) && (ρσ_in("right", k) || ρσ_in("left", k)) || ρσ_in("w", k) && (ρσ_in("d", k) || ρσ_in("a", k))) {
+            "129";
+            if ((s === 1 || typeof s === "object" && ρσ_equals(s, 1))) {
+                "130";
+                s = 0;
+                "131";
+                ball.color = color.green;
+                "132";
+                if (ρσ_in("right", k) || ρσ_in("d", k)) {
+                    "133";
+                    velocity = vec(30, 1, 0);
+                    "134";
+                } else {
+                    "135";
+                    velocity = vec(1["-u"]()["*"](30), 1, 0);
+                }
+                "136";
+                while (t["<="](.3)) {
+                    "137";
+                    (await rate(125));
+                    "138";
+                    (await collision());
+                    "139";
+                    (await gain(coin));
+                    "140";
+                    (await gain(skill));
+                    "141";
+                    ball.pos = ball.pos["+"](velocity["*"](dt));
+                    "142";
+                    velocity.y=velocity.y["+"](g["*"](dt));
+                    "143";
+                    t=t["+"](dt);
+                    "144";
+                    time=time["+"](1["/"](125));
+                }
+                "145";
+                t = 0;
+            }
+        }
+    };
+    if (!movement.__module__) Object.defineProperties(movement, {
+        __module__ : {value: null}
+    });
+
+    "147";
+    ball = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({radius: .5, color: color.green, visible: false})]);
+    "148";
+    ball.velocity = vec(0, 0, 0);
+    "150";
+    dt = .01;
+    "151";
+    g = 1["-u"]()["*"](30);
+    "152";
+    jump_velocity = 15;
+    "153";
+    current_platform_y = ball.pos.y;
+    "155";
+    l = ρσ_interpolate_kwargs.call(this, label, [ρσ_desugar_kwargs({text: "Bounce Ball\n\nPress any key to start"})]);
+    "156";
+    while (true) {
+        "157";
+        (await rate(100));
+        "158";
+        k = (await keysdown());
+        "159";
+        if (ρσ_not_equals(len(k), 0)) {
+            document.getElementById("carol").play();	
+            "160";
+            l.visible = false;
+            "161";
+            ball.visible = true;
+            "162";
+            break;
+        }
+    }
+    "164";
+    while (true) {
+        "165";
+        (await rate(100));
+        "166";
+        k = (await keysdown());
+        "167";
+        ball.visible = true;
+        "168";
+        while (true) {
+            "169";
+            var ρσ_Iter10 = block_list["+"](coin_reset)["+"](skill_reset);
+            ρσ_Iter10 = ((typeof ρσ_Iter10[Symbol.iterator] === "function") ? (ρσ_Iter10 instanceof Map ? ρσ_Iter10.keys() : ρσ_Iter10) : Object.keys(ρσ_Iter10));
+            for (var ρσ_Index10 of ρσ_Iter10) {
+                i = ρσ_Index10;
+                "170";
+                i.visible = false;
+            }
+            "172";
+            block_list = ρσ_list_decorate([]);
+            "173";
+            coin_reset = ρσ_list_decorate([]);
+            "174";
+            skill_reset = ρσ_list_decorate([]);
+            "176";
+            if ((stage === 1 || typeof stage === "object" && ρσ_equals(stage, 1))) {
+                "177";
+                block_list = ρσ_list_decorate([ (await block(1["-u"]()["*"](10), 1["-u"]()["*"](5), 0, 0)), (await block(0, 10, 0, 0)), (await block(20, 26, 0, 0)) ]);
+                "182";
+                coin_reset = ρσ_list_decorate([ (await star(23, 1, 0)), (await star(5, 1, 0)) ]);
+                "186";
+                skill_reset = ρσ_list_decorate([ (await star(9, 1, 1)) ]);
+                "189";
+                start = vec(1["-u"]()["*"](10), 1, 0);
+                "191";
+            } else if ((stage === 2 || typeof stage === "object" && ρσ_equals(stage, 2))) {
+                "192";
+                block_list = ρσ_list_decorate([ (await block(1["-u"]()["*"](11), 1["-u"]()["*"](7), 0, 0)), (await block(1["-u"]()["*"](2), 2, 2, 0)), (await block(7.5["-"](1["*"](2)), 7.5["+"](2), 4, 0)), (await block(15["-"](1["*"](2)), 15["+"](2), 3, 0)), (await wall(1["-u"]()["*"](5), 5, 1["-u"]()["*"](25))) ]);
+                "200";
+                coin_reset = ρσ_list_decorate([ (await star(15, 4, 0)), (await star(1["-u"]()["*"](24), 0, 0)) ]);
+                "204";
+                skill_reset = ρσ_list_decorate([ (await star(0, 4, 1)) ]);
+                "207";
+                start = vec(1["-u"]()["*"](9), 2, 0);
+                "208";
+            } else if ((stage === 3 || typeof stage === "object" && ρσ_equals(stage, 3))) {
+                "209";
+                start = vec(1["-u"]()["*"](9), 22, 0);
+                "210";
+                block_list = ρσ_list_decorate([ (await block(1["-u"]()["*"](10), 1["-u"]()["*"](8), 20, 0)), (await block(1.5, 1["-u"]()["*"](4), 15, 1)), (await block(1["-u"]()["*"](3), 5, 3, 0)), (await wall(25, 10, 2)), (await wall(19.5, 5, 1["-u"]()["*"](9))), (await wall(23, 5, 11)), (await block(9, 11, 7, 0)), (await block(2, 4, 11, 0)), (await block(9, 11, 15, 0)), (await block(2, 4, 19, 0)), (await block(9, 13, 23, 0)) ]);
+                "224";
+                coin_reset = ρσ_list_decorate([ (await star(1, 20, 0)), (await star(1["-u"]()["*"](8), 15, 0)), (await star(1, 10, 0)) ]);
+                "229";
+                var ρσ_Iter11 = range(22, 5, 1["-u"]()["*"](1));
+                ρσ_Iter11 = ((typeof ρσ_Iter11[Symbol.iterator] === "function") ? (ρσ_Iter11 instanceof Map ? ρσ_Iter11.keys() : ρσ_Iter11) : Object.keys(ρσ_Iter11));
+                for (var ρσ_Index11 of ρσ_Iter11) {
+                    i = ρσ_Index11;
+                    "230";
+                    coin_reset.append((await star(20, i, 0)));
+                }
+                "231";
+                skill_reset = ρσ_list_decorate([ (await star(1["-u"]()["*"](9), 21, 1)), (await star(1, 19, 1)), (await star(1["-u"]()["*"](8), 14, 1)), (await star(11, 24, 1)) ]);
+                "237";
+            } else if ((stage === 4 || typeof stage === "object" && ρσ_equals(stage, 4))) {
+                "238";
+                start = vec(0, 6, 0);
+                "239";
+                block_list = ρσ_list_decorate([ (await block(1["-u"]()["*"](8), 0, 5, 0)), (await block(1["-u"]()["*"](22), 1["-u"]()["*"](40.25), 0, 0)) ]);
+                "243";
+                for (var ρσ_Index12 = 0; ρσ_Index12["<"](4); ρσ_Index12++) {
+                    i = ρσ_Index12;
+                    "244";
+                    for (var ρσ_Index13 = 1; ρσ_Index13["<"](3); ρσ_Index13++) {
+                        j = ρσ_Index13;
+                        "245";
+                        block_list.append((await block(1["-u"]()["*"](26.5)["-"](1["*"](4)["*"](i)), 1["-u"]()["*"](25.5)["-"](1["*"](4)["*"](i)), j["+"](.25), 1)));
+                    }
+                }
+                "246";
+                coin_reset = ρσ_list_decorate([ (await star(1["-u"]()["*"](15), .1["+"](8), 0)), (await star(1["-u"]()["*"](17.5), .1["+"](7.75), 0)), (await star(1["-u"]()["*"](20), .1["+"](7), 0)), (await star(1["-u"]()["*"](22.5), .1["+"](6.25), 0)), (await star(1["-u"]()["*"](40), .1["+"](1), 0)) ]);
+                "253";
+                skill_reset = ρσ_list_decorate([ (await star(1["-u"]()["*"](8), 6, 1)) ]);
+                "256";
+            } else {
+                "257";
+                block_list = ρσ_list_decorate([]);
+                "258";
+                coin_reset = ρσ_list_decorate([]);
+                "259";
+                skill_reset = ρσ_list_decorate([]);
+                "260";
+                ball.visible = false;
+                "261";
+                time = int(time);
+                "262";
+                s = time["%"](60);
+                "263";
+                m = Math.floor(time["/"](60));
+                "264";
+                h = Math.floor(time["/"](3600));
+                "266";
+                end = ρσ_interpolate_kwargs.call(this, label, [ρσ_desugar_kwargs({text: "Game Clear\n\ndeath: "["+"](ρσ_str.format("{}", death))["+"]("\n\nPlay Time : ")["+"](ρσ_str.format("{}", (await f(h))))["+"](":")["+"](ρσ_str.format("{}", (await f(m))))["+"](":")["+"](ρσ_str.format("{}", (await f(s))))["+"](" "), pos: scene.center})]);
+                "267";
+                game_cleared = 1;
+                "268";
+                break;
+            }
+            "270";
+            (await unji());
+            "271";
+            while (true) {
+                "272";
+                t=t["+"](.01);
+                "273";
+                if (t[">="](.02)) {
+                    "274";
+                    snow.append(ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({radius: .2, pos: vec(ball.pos.x["+"](random.uniform(1["-u"]()["*"](100), 100)), ball.pos.y["+"](10), 0)})]));
+                    "275";
+                    t = 0;
+                }
+                "276";
+                var ρσ_Iter14 = snow;
+                ρσ_Iter14 = ((typeof ρσ_Iter14[Symbol.iterator] === "function") ? (ρσ_Iter14 instanceof Map ? ρσ_Iter14.keys() : ρσ_Iter14) : Object.keys(ρσ_Iter14));
+                for (var ρσ_Index14 of ρσ_Iter14) {
+                    j = ρσ_Index14;
+                    "277";
+                    j.pos.y=j.pos.y["-"](.05);
+                }
+                "278";
+                var ρσ_Iter15 = range(len(snow)["-"](1["*"](1)), 1["-u"]()["*"](1), 1["-u"]()["*"](1));
+                ρσ_Iter15 = ((typeof ρσ_Iter15[Symbol.iterator] === "function") ? (ρσ_Iter15 instanceof Map ? ρσ_Iter15.keys() : ρσ_Iter15) : Object.keys(ρσ_Iter15));
+                for (var ρσ_Index15 of ρσ_Iter15) {
+                    i = ρσ_Index15;
+                    "279";
+                    if (ρσ_getitem(snow, i).pos.y["<="](1["-u"]()["*"](10))) {
+                        "280";
+                        ρσ_getitem(snow, i).visible = false;
+                        "281";
+                        ρσ_delitem(snow, i);
+                    }
+                }
+                "283";
+                (await rate(125));
+                "284";
+                time=time["+"](1["/"](125));
+                "285";
+                (await movement());
+                "287";
+                scene.center.x = ball.pos.x;
+                "289";
+                ball.velocity.y=ball.velocity.y["+"](g["*"](dt));
+                "290";
+                ball.pos=ball.pos["+"](ball.velocity["*"](dt));
+                "292";
+                (await collision());
+                "293";
+                (await gain(coin));
+                "294";
+                (await gain(skill));
+                "295";
+                if (ball.pos.y["<"](1["-u"]()["*"](10))) {
+                    "296";
+                    (await unji());
+                }
+                "297";
+                scene.center.y = await ρσ_list_decorate(ρσ_interpolate_kwargs.call(this, smooth_camera_move, [current_platform_y, scene.center.y].concat([ρσ_desugar_kwargs({alpha: .05})])));
+                "298";
+                scene.camera.pos.y = await ρσ_list_decorate(ρσ_interpolate_kwargs.call(this, smooth_camera_move, [current_platform_y, scene.camera.pos.y].concat([ρσ_desugar_kwargs({alpha: .05})])));
+                "300";
+                if (ρσ_equals(len(coin), 0)) {
+                    "301";
+                    ball.velocity = vec(0, 0, 0);
+                    "302";
+                    end = ρσ_interpolate_kwargs.call(this, label, [ρσ_desugar_kwargs({text: "Stage "["+"](ρσ_str.format("{}", stage))["+"](" clear"), pos: scene.center})]);
+                    "303";
+                    end.visible = true;
+                    "304";
+                    (await sleep(2));
+                    "305";
+                    time=time["+"](2);
+                    "306";
+                    var ρσ_Iter16 = block_list["+"](coin_reset)["+"](skill_reset);
+                    ρσ_Iter16 = ((typeof ρσ_Iter16[Symbol.iterator] === "function") ? (ρσ_Iter16 instanceof Map ? ρσ_Iter16.keys() : ρσ_Iter16) : Object.keys(ρσ_Iter16));
+                    for (var ρσ_Index16 of ρσ_Iter16) {
+                        i = ρσ_Index16;
+                        "307";
+                        i.visible = false;
+                    }
+                    "308";
+                    end.visible = false;
+                    "309";
+                    stage=stage["+"](1);
+                    "310";
+                    break;
+                    "311";
+                }
+                if (game_cleared) {
+                    "312";
+                    break;
+                    "313";
+                }
+            }
+        }
+        if (game_cleared) {
+            "314";
+            break;
+        }
+    }
+};
+if (!__main__.__module__) Object.defineProperties(__main__, {
+    __module__ : {value: null}
+});
+
+;$(function(){ window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }; __main__() })})()
+// END JAVASCRIPT
+
+//--><!]]></script>
+</div>
